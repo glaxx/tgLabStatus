@@ -2,6 +2,12 @@
 name = "tg-labstatus"
 version = "0.1.0"
 authors = ["Stefan Lücke <glaxx@glaxx.net>"]
+description = "OpenLab Augsburg Status Bot for Telegram"
+homepage = "https://github.com/glaxx/tgLabStatus"
+repository = "https://github.com/glaxx/tgLabStatus"
+readme = "README.md"
+keywords = ["telegram", "bot"]
+license = "AGPL-3.0"
 
 [dependencies]
 telegram-bot = "0.4.2"
