@@ -17,12 +17,13 @@
 //
 extern crate telegram_bot;
 extern crate hyper;
+#[macro_use]
+extern crate version;
 
 use std::io::Read;
 use telegram_bot::*;
 
-// TODO: gather version from cargo
-const VERSION: &'static str = "0.1.0";
+const VERSION: &'static str = version!();
 
 fn main() {
     let token = "";

@@ -12,3 +12,4 @@ license = "AGPL-3.0"
 [dependencies]
 telegram-bot = "0.4.2"
 hyper = "0.9.10"
+version = "2.0.1"
