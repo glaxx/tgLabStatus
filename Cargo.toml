@@ -4,3 +4,5 @@ version = "0.1.0"
 authors = ["Stefan Lücke <glaxx@glaxx.net>"]
 
 [dependencies]
+telegram-bot = "0.4.2"
+hyper = "0.9.10"
