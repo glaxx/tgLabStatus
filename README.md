@@ -11,5 +11,6 @@ cargo build
 Just run it.
 
 ## Supported commands
-/help - lists all commands
-/status - prints the current status
+/help - lists all commands  
+/status - prints the current status  
+/version - print the version number
