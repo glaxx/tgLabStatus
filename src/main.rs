@@ -21,6 +21,9 @@ extern crate hyper;
 use std::io::Read;
 use telegram_bot::*;
 
+// TODO: gather version from cargo
+const VERSION: &'static str = "0.1.0";
+
 fn main() {
     let token = "";
     let api = Api::from_token(token).unwrap();
@@ -91,9 +94,19 @@ fn main() {
                                                        support the following \
                                                        commands:\n\n/help - show this \
                                                        text\n/status - show the room \
-                                                       status\n\nFor any issues visit \
+                                                       status\n/version - show the bots \
+                                                       version number\n\nFor any issues visit \
                                                        https://github.com/glaxx/tglabstatus",
                                                       name),
+                                              None,
+                                              None,
+                                              None,
+                                              None));
+                    }
+
+                    if t == "/version" {
+                        try!(api.send_message(m.chat.id(),
+                                              format!("Version: {}", VERSION),
                                               None,
                                               None,
                                               None,
