@@ -1,0 +1,6 @@
+[package]
+name = "tg-labstatus"
+version = "0.1.0"
+authors = ["Stefan Lücke <glaxx@glaxx.net>"]
+
+[dependencies]
