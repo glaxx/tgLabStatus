@@ -17,19 +17,7 @@
 //
 #[macro_use]
 extern crate version;
-extern crate telegram_bot;
 
 pub mod handler;
 
 use std::result::Result;
-
-pub fn send(m: telegram_bot::Message,
-            a: telegram_bot::Api)
-            -> Result<telegram_bot::Message, telegram_bot::Error> {
-
-    if let telegram_bot::MessageType::Text(t) = m.msg {
-        return a.send_message(m.chat.id(), t, None, None, None, None);
-    } else {
-        Err(telegram_bot::Error::Api("Not implemented".to_string()))
-    }
-}
