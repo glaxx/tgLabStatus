@@ -8,7 +8,8 @@ cargo build
 ```
 
 ## Usage
-Just run it.
+0. Set your API token as OPENLAB_AUGSBURG_BOT_TOKEN environment variable.
+1. Run it.
 
 ## Supported commands
 /help - lists all commands  
