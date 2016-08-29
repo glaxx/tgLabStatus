@@ -29,13 +29,21 @@ fn main() {
     let api = Api::from_env("OPENLAB_AUGSBURG_BOT_TOKEN").unwrap();
     let mut listener = api.listener(ListeningMethod::LongPoll(None));
 
-    let hand = handler::status::StatusHandler::new();
+    let statush = handler::status::StatusHandler::new();
     let versionh = handler::version::VersionHandler::new();
     let res = listener.listen(move |u| {
         if let Some(m) = u.message {
             let mclone = m.clone();
             if let MessageType::Text(t) = m.msg {
-                if t == hand.command() {
+                if t == statush.command() {
+                    try!(api.send_message(m.chat.id(),
+                                          statush.process(mclone.clone()),
+                                          None,
+                                          None,
+                                          None,
+                                          None));
+                }
+
                     try!(api.send_message(m.chat.id(),
                     hand.process(mclone),
                     None,
