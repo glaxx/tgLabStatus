@@ -69,7 +69,7 @@ fn main() {
 
     match res {
         Ok(_) => {
-            println!("Programm terminated succesfully");
+            println!("Program terminated succesfully");
         }
         Err(e) => {
             println!("An error occured: {}", e);
