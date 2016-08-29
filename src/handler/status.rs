@@ -40,38 +40,51 @@ impl Handler for StatusHandler {
         vec![String::from_str("/status").unwrap()]
     }
 
-    fn process(&self, m: telegram_bot::Message) -> String {
+    fn process(&self,
+               m: telegram_bot::Message,
+               a: telegram_bot::Api)
+               -> Result<telegram_bot::Message, telegram_bot::Error> {
         let client = hyper::client::Client::new();
         let status = client.get("https://labctl.openlab-augsburg.de/sphincter/?action=state")
             .send();
         let name = m.from.first_name;
         match status {
             Ok(mut response) => {
-
                 let mut buf = String::new();
                 let body = response.read_to_string(&mut buf);
                 match body {
                     Ok(_) => {
-                        return format!("Hey {}! The Lab status is {}", name, buf);
+                        return a.send_message(m.chat.id(),
+                                              format!("Hey {}! The Lab status is {}", name, buf),
+                                              None,
+                                              None,
+                                              None,
+                                              None)
                     }
                     Err(e) => {
                         println!("Error: {}", e);
-                        return format!("Sorry {}! The Lab status is currently \
-                                                          unavailable. Please Try again later.",
-                                       name);
+                        return a.send_message(m.chat.id(),
+                                              format!("Sorry {}! The Lab status is currently \
+                                                       unavailable. Please Try again later.",
+                                                      name),
+                                              None,
+                                              None,
+                                              None,
+                                              None);
                     }
                 }
             }
             Err(e) => {
                 println!("Error: {}", e);
-                return format!("Sorry {}! The Lab status is currently unavailable. Please Try \
-                                  again later.",
-                               name);
-
-
-
+                return a.send_message(m.chat.id(),
+                                      format!("Sorry {}! The Lab status is currently \
+                                               unavailable. Please Try again later.",
+                                              name),
+                                      None,
+                                      None,
+                                      None,
+                                      None);
             }
         }
-        String::new()
     }
 }

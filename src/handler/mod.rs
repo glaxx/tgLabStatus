@@ -24,5 +24,8 @@ pub mod start;
 pub trait Handler {
     fn msg_type() -> telegram_bot::MessageType;
     fn command() -> Vec<String>;
-    fn process(&self, telegram_bot::Message) -> String;
+    fn process(&self,
+               m: telegram_bot::Message,
+               a: telegram_bot::Api)
+               -> Result<telegram_bot::Message, telegram_bot::Error>;
 }

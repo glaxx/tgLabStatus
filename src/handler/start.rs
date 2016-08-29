@@ -38,13 +38,20 @@ impl Handler for StartHandler {
         vec![String::from_str("/start").unwrap(), String::from_str("/help").unwrap()]
     }
 
-    fn process(&self, m: telegram_bot::Message) -> String {
-        format!("Hello {},\nthis is @OpenLabAugsburgBot.\n\nRight now I support \
-                 the following commands:\n\n/help - show \
-                 this text\n/status - show the room \
-                 status\n/version - show the bots version \
-                 number\n\nFor any issues visit \
-                 https://github.com/glaxx/tglabstatus",
-                m.from.first_name)
+    fn process(&self,
+               m: telegram_bot::Message,
+               a: telegram_bot::Api)
+               -> Result<telegram_bot::Message, telegram_bot::Error> {
+        a.send_message(m.chat.id(),
+                       format!("Hello {},\nthis is @OpenLabAugsburgBot.\n\nRight now I support \
+                                the following commands:\n\n/help - show this text\n/status - \
+                                show the room status\n/version - show the bots version \
+                                number\n\nFor any issues visit \
+                                https://github.com/glaxx/tglabstatus",
+                               m.from.first_name),
+                       None,
+                       None,
+                       None,
+                       None)
     }
 }

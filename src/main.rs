@@ -32,36 +32,20 @@ fn main() {
     let res = listener.listen(move |u| {
         if let Some(m) = u.message {
             let mclone = m.clone();
-            let apiclone = api.clone();
             if let MessageType::Text(t) = m.msg {
                 if handler::status::StatusHandler::command().contains(&t) {
                     let statush = handler::status::StatusHandler::new();
-                    try!(api.send_message(m.chat.id(),
-                                          statush.process(mclone.clone()),
-                                          None,
-                                          None,
-                                          None,
-                                          None));
+                    statush.process(mclone.clone(), api.clone());
                 }
 
                 if handler::start::StartHandler::command().contains(&t) {
                     let starth = handler::start::StartHandler::new();
-                    try!(api.send_message(m.chat.id(),
-                                          starth.process(mclone.clone()),
-                                          None,
-                                          None,
-                                          None,
-                                          None));
+                    starth.process(mclone.clone(), api.clone());
                 }
 
                 if handler::version::VersionHandler::command().contains(&t) {
                     let versionh = handler::version::VersionHandler::new();
-                    try!(api.send_message(m.chat.id(),
-                                          versionh.process(mclone.clone()),
-                                          None,
-                                          None,
-                                          None,
-                                          None));
+                    versionh.process(mclone.clone(), api.clone());
                 }
             }
         }
