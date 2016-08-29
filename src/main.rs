@@ -24,13 +24,13 @@ mod handler;
 use telegram_bot::*;
 use handler::Handler;
 
-const VERSION: &'static str = version!();
 
 fn main() {
     let api = Api::from_env("OPENLAB_AUGSBURG_BOT_TOKEN").unwrap();
     let mut listener = api.listener(ListeningMethod::LongPoll(None));
 
     let hand = handler::status::StatusHandler::new();
+    let versionh = handler::version::VersionHandler::new();
     let res = listener.listen(move |u| {
         if let Some(m) = u.message {
             let mclone = m.clone();
@@ -61,9 +61,9 @@ fn main() {
                                           None));
                 }
 
-                if t == "/version" {
+                if t == versionh.command() {
                     try!(api.send_message(m.chat.id(),
-                                          format!("Version: {}", VERSION),
+                                          versionh.process(mclone.clone()),
                                           None,
                                           None,
                                           None,

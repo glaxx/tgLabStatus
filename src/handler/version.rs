@@ -14,8 +14,31 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 //    Authors: Stefan Luecke <glaxx@glaxx.net>
-//
-#[macro_use]
-extern crate version;
 
-pub mod handler;
+extern crate telegram_bot;
+
+use std::str::FromStr;
+use handler::Handler;
+
+pub struct VersionHandler {
+}
+
+impl VersionHandler {
+    pub fn new() -> VersionHandler {
+        VersionHandler {}
+    }
+}
+
+impl Handler for VersionHandler {
+    fn msg_type(&self) -> telegram_bot::MessageType {
+        telegram_bot::MessageType::Text("".to_string())
+    }
+
+    fn command(&self) -> String {
+        String::from_str("/version").unwrap()
+    }
+
+    fn process(&self, m: telegram_bot::Message) -> String {
+        format!("Version: {}", version!())
+    }
+}
