@@ -63,6 +63,7 @@ fn main() {
             Err(e) => {
                 failures += 1;
                 println!("[{}/{}]An error occured: {}", failures, MAX_FAILURES, e);
+                std::thread::sleep(std::time::Duration::from_secs(1 + (1 * failures)));
             }
         }
         if failures == MAX_FAILURES {
