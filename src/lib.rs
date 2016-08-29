@@ -15,11 +15,9 @@
 //
 //    Authors: Stefan Luecke <glaxx@glaxx.net>
 //
-<<<<<<< 875ae71bf5d1d4d51b7bcd063d4bf3539609e73a
 #[macro_use]
 extern crate version;
-=======
->>>>>>> [WIP] Draft of generic snd msg fn
+extern crate telegram_bot;
 
 pub mod handler;
 
