@@ -43,16 +43,6 @@ fn main() {
                                           None));
                 }
 
-                if t == handler::help::HelpHandler::command() {
-                    let helph = handler::help::HelpHandler::new();
-                    try!(api.send_message(m.chat.id(),
-                                          helph.process(mclone.clone()),
-                                          None,
-                                          None,
-                                          None,
-                                          None));
-                }
-
                 if t == handler::start::StartHandler::command() {
                     let starth = handler::start::StartHandler::new();
                     try!(api.send_message(m.chat.id(),

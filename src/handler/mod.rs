@@ -19,7 +19,6 @@ extern crate telegram_bot;
 
 pub mod status;
 pub mod version;
-pub mod help;
 pub mod start;
 
 pub trait Handler {
