@@ -45,7 +45,6 @@ impl Handler for StatusHandler {
         let status = client.get("https://labctl.openlab-augsburg.de/sphincter/?action=state")
             .send();
         let name = m.from.first_name;
-        let mut answer = String::new();
         match status {
             Ok(mut response) => {
 
@@ -53,26 +52,26 @@ impl Handler for StatusHandler {
                 let body = response.read_to_string(&mut buf);
                 match body {
                     Ok(_) => {
-                        answer = format!("Hey {}! The Lab status is {}", name, buf);
+                        return format!("Hey {}! The Lab status is {}", name, buf);
                     }
                     Err(e) => {
                         println!("Error: {}", e);
-                        answer = format!("Sorry {}! The Lab status is currently \
+                        return format!("Sorry {}! The Lab status is currently \
                                                           unavailable. Please Try again later.",
-                                         name);
+                                       name);
                     }
                 }
             }
             Err(e) => {
                 println!("Error: {}", e);
-                answer = format!("Sorry {}! The Lab status is currently unavailable. Please Try \
+                return format!("Sorry {}! The Lab status is currently unavailable. Please Try \
                                   again later.",
-                                 name);
+                               name);
 
 
 
             }
         }
-        answer
+        String::new()
     }
 }
