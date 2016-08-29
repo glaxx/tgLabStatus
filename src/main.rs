@@ -24,40 +24,49 @@ mod handler;
 use telegram_bot::*;
 use handler::Handler;
 
+const MAX_FAILURES: u64 = 3;
 
 fn main() {
     let api = Api::from_env("OPENLAB_AUGSBURG_BOT_TOKEN").unwrap();
     let mut listener = api.listener(ListeningMethod::LongPoll(None));
+    let mut failures: u64 = 0;
 
-    let res = listener.listen(move |u| {
-        if let Some(m) = u.message {
-            let mclone = m.clone();
-            if let MessageType::Text(t) = m.msg {
-                if handler::status::StatusHandler::command().contains(&t) {
-                    let statush = handler::status::StatusHandler::new();
-                    statush.process(mclone.clone(), api.clone());
-                }
+    loop {
+        let a = Api::from_env("OPENLAB_AUGSBURG_BOT_TOKEN").unwrap();;
+        let res = listener.listen(move |u| {
+            if let Some(m) = u.message {
+                let mclone = m.clone();
+                if let MessageType::Text(t) = m.msg {
+                    if handler::status::StatusHandler::command().contains(&t) {
+                        let statush = handler::status::StatusHandler::new();
+                        statush.process(mclone.clone(), a.clone());
+                    }
 
-                if handler::start::StartHandler::command().contains(&t) {
-                    let starth = handler::start::StartHandler::new();
-                    starth.process(mclone.clone(), api.clone());
-                }
+                    if handler::start::StartHandler::command().contains(&t) {
+                        let starth = handler::start::StartHandler::new();
+                        starth.process(mclone.clone(), a.clone());
+                    }
 
-                if handler::version::VersionHandler::command().contains(&t) {
-                    let versionh = handler::version::VersionHandler::new();
-                    versionh.process(mclone.clone(), api.clone());
+                    if handler::version::VersionHandler::command().contains(&t) {
+                        let versionh = handler::version::VersionHandler::new();
+                        versionh.process(mclone.clone(), a.clone());
+                    }
                 }
             }
-        }
-        Ok(ListeningAction::Continue)
-    });
+            Ok(ListeningAction::Continue)
+        });
 
-    match res {
-        Ok(_) => {
-            println!("Program terminated succesfully");
+        match res {
+            Ok(_) => {
+                println!("Program terminated succesfully");
+            }
+            Err(e) => {
+                failures += 1;
+                println!("[{}/{}]An error occured: {}", failures, MAX_FAILURES, e);
+            }
         }
-        Err(e) => {
-            println!("An error occured: {}", e);
+        if failures == MAX_FAILURES {
+            return;
         }
     }
 }
