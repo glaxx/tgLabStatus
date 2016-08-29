@@ -31,6 +31,8 @@ fn main() {
 
     let statush = handler::status::StatusHandler::new();
     let versionh = handler::version::VersionHandler::new();
+    let starth = handler::start::StartHandler::new();
+
     let res = listener.listen(move |u| {
         if let Some(m) = u.message {
             let mclone = m.clone();
