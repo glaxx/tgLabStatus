@@ -38,7 +38,7 @@ impl Handler for VersionHandler {
         vec![String::from_str("/version").unwrap()]
     }
 
-    fn process(&self, m: telegram_bot::Message) -> String {
+    fn process(&self, _: telegram_bot::Message) -> String {
         format!("Version: {}", version!())
     }
 }
