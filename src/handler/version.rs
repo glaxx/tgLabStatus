@@ -34,8 +34,8 @@ impl Handler for VersionHandler {
         telegram_bot::MessageType::Text("".to_string())
     }
 
-    fn command() -> String {
-        String::from_str("/version").unwrap()
+    fn command() -> Vec<String> {
+        vec![String::from_str("/version").unwrap()]
     }
 
     fn process(&self, m: telegram_bot::Message) -> String {

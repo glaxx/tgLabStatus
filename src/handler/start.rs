@@ -34,8 +34,8 @@ impl Handler for StartHandler {
         telegram_bot::MessageType::Text("".to_string())
     }
 
-    fn command() -> String {
-        String::from_str("/start").unwrap()
+    fn command() -> Vec<String> {
+        vec![String::from_str("/start").unwrap(), String::from_str("/help").unwrap()]
     }
 
     fn process(&self, m: telegram_bot::Message) -> String {

@@ -35,6 +35,11 @@ impl Handler for StatusHandler {
         telegram_bot::MessageType::Text("".to_string())
     }
 
+
+    fn command() -> Vec<String> {
+        vec![String::from_str("/status").unwrap()]
+    }
+
     fn process(&self, m: telegram_bot::Message) -> String {
         let client = hyper::client::Client::new();
         let status = client.get("https://labctl.openlab-augsburg.de/sphincter/?action=state")
@@ -69,9 +74,5 @@ impl Handler for StatusHandler {
             }
         }
         answer
-    }
-
-    fn command() -> String {
-        String::from_str("/status").unwrap()
     }
 }
