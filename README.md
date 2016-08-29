@@ -1,4 +1,4 @@
-# tgLabStatus
+# tgLabStatus ![Build Status](https://travis-ci.org/glaxx/tgLabStatus.svg?branch=master)  
 tgLabStatus shows you the current state of the [Openlab Augsburg](https://openlab-augsburg.de).
 
 ## Build
