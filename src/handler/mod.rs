@@ -24,6 +24,7 @@ pub mod start;
 
 pub trait Handler {
     fn msg_type(&self) -> telegram_bot::MessageType;
+    // TODO: multiple commands
     fn command(&self) -> String;
     fn process(&self, telegram_bot::Message) -> String;
 }
