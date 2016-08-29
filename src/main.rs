@@ -29,16 +29,12 @@ fn main() {
     let api = Api::from_env("OPENLAB_AUGSBURG_BOT_TOKEN").unwrap();
     let mut listener = api.listener(ListeningMethod::LongPoll(None));
 
-    let statush = handler::status::StatusHandler::new();
-    let versionh = handler::version::VersionHandler::new();
-    let helph = handler::help::HelpHandler::new();
-    let starth = handler::start::StartHandler::new();
-
     let res = listener.listen(move |u| {
         if let Some(m) = u.message {
             let mclone = m.clone();
             if let MessageType::Text(t) = m.msg {
-                if t == statush.command() {
+                if t == handler::status::StatusHandler::command() {
+                    let statush = handler::status::StatusHandler::new();
                     try!(api.send_message(m.chat.id(),
                                           statush.process(mclone.clone()),
                                           None,
@@ -47,7 +43,8 @@ fn main() {
                                           None));
                 }
 
-                if t == helph.command() {
+                if t == handler::help::HelpHandler::command() {
+                    let helph = handler::help::HelpHandler::new();
                     try!(api.send_message(m.chat.id(),
                                           helph.process(mclone.clone()),
                                           None,
@@ -56,7 +53,8 @@ fn main() {
                                           None));
                 }
 
-                if t == starth.command() {
+                if t == handler::start::StartHandler::command() {
+                    let starth = handler::start::StartHandler::new();
                     try!(api.send_message(m.chat.id(),
                                           starth.process(mclone.clone()),
                                           None,
@@ -65,7 +63,8 @@ fn main() {
                                           None));
                 }
 
-                if t == versionh.command() {
+                if t == handler::version::VersionHandler::command() {
+                    let versionh = handler::version::VersionHandler::new();
                     try!(api.send_message(m.chat.id(),
                                           versionh.process(mclone.clone()),
                                           None,

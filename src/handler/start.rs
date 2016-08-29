@@ -30,11 +30,11 @@ impl StartHandler {
 }
 
 impl Handler for StartHandler {
-    fn msg_type(&self) -> telegram_bot::MessageType {
+    fn msg_type() -> telegram_bot::MessageType {
         telegram_bot::MessageType::Text("".to_string())
     }
 
-    fn command(&self) -> String {
+    fn command() -> String {
         String::from_str("/start").unwrap()
     }
 
