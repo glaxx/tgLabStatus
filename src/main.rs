@@ -32,6 +32,7 @@ fn main() {
     let res = listener.listen(move |u| {
         if let Some(m) = u.message {
             let mclone = m.clone();
+            let apiclone = api.clone();
             if let MessageType::Text(t) = m.msg {
                 if handler::status::StatusHandler::command().contains(&t) {
                     let statush = handler::status::StatusHandler::new();

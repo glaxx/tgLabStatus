@@ -15,7 +15,23 @@
 //
 //    Authors: Stefan Luecke <glaxx@glaxx.net>
 //
+<<<<<<< 875ae71bf5d1d4d51b7bcd063d4bf3539609e73a
 #[macro_use]
 extern crate version;
+=======
+>>>>>>> [WIP] Draft of generic snd msg fn
 
 pub mod handler;
+
+use std::result::Result;
+
+pub fn send(m: telegram_bot::Message,
+            a: telegram_bot::Api)
+            -> Result<telegram_bot::Message, telegram_bot::Error> {
+
+    if let telegram_bot::MessageType::Text(t) = m.msg {
+        return a.send_message(m.chat.id(), t, None, None, None, None);
+    } else {
+        Err(telegram_bot::Error::Api("Not implemented".to_string()))
+    }
+}
