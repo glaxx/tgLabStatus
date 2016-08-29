@@ -52,17 +52,9 @@ fn main() {
                     None));
                 }
 
-                if t == "/help" || t == "/start" {
-                    let name = m.from.first_name;
+                if t == starth.command() {
                     try!(api.send_message(m.chat.id(),
-                                          format!("Hello {},\nthis is \
-                                                   @OpenLabAugsburgBot.\n\nRight now I support \
-                                                   the following commands:\n\n/help - show \
-                                                   this text\n/status - show the room \
-                                                   status\n/version - show the bots version \
-                                                   number\n\nFor any issues visit \
-                                                   https://github.com/glaxx/tglabstatus",
-                                                  name),
+                                          starth.process(mclone.clone()),
                                           None,
                                           None,
                                           None,

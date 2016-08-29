@@ -19,6 +19,7 @@ extern crate telegram_bot;
 
 pub mod status;
 pub mod version;
+pub mod start;
 
 pub trait Handler {
     fn msg_type(&self) -> telegram_bot::MessageType;
