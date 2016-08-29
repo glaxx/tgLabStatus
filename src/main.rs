@@ -31,6 +31,7 @@ fn main() {
 
     let statush = handler::status::StatusHandler::new();
     let versionh = handler::version::VersionHandler::new();
+    let helph = handler::help::HelpHandler::new();
     let starth = handler::start::StartHandler::new();
 
     let res = listener.listen(move |u| {
@@ -46,12 +47,13 @@ fn main() {
                                           None));
                 }
 
+                if t == helph.command() {
                     try!(api.send_message(m.chat.id(),
-                    hand.process(mclone),
-                    None,
-                    None,
-                    None,
-                    None));
+                                          helph.process(mclone.clone()),
+                                          None,
+                                          None,
+                                          None,
+                                          None));
                 }
 
                 if t == starth.command() {
